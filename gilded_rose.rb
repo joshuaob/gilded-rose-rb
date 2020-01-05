@@ -26,10 +26,17 @@ class Item
 end
 
 class Basic < Item
+  MAX_QUALITY = 50
+
+  def initialize(name, sell_in, quality)
+    quality = [quality, MAX_QUALITY].min
+    super(name, sell_in, quality)
+  end
+
   def update_quality
     if quality < 50
       sell_in < 0 ? self.quality -= 2 : self.quality -= 1
-    end 
+    end
     self.quality = 0 if quality < 0
   end
 
@@ -39,6 +46,12 @@ class Basic < Item
 end
 
 class Legendary < Item
+  MAX_QUALITY = 80
+
+  def initialize(name, sell_in, quality)
+    super(name, sell_in, MAX_QUALITY)
+  end
+
   def update_quality
   end
 
@@ -48,6 +61,13 @@ class Legendary < Item
 end
 
 class BackStagePass < Item
+  MAX_QUALITY = 50
+
+  def initialize(name, sell_in, quality)
+    quality = [quality, MAX_QUALITY].min
+    super(name, sell_in, quality)
+  end
+
   def update_quality
     if quality < 50
       self.quality = quality + 1
@@ -87,6 +107,13 @@ class BackStagePass < Item
 end
 
 class Conjured < Item
+  MAX_QUALITY = 50
+
+  def initialize(name, sell_in, quality)
+    quality = [quality, MAX_QUALITY].min
+    super(name, sell_in, quality)
+  end
+
   def update_quality
     if quality < 50
       sell_in < 0 ? self.quality -= 4 : self.quality -= 2
