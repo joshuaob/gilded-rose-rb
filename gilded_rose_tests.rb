@@ -26,6 +26,26 @@ class TestUntitled < Test::Unit::TestCase
     assert_equal 0, items[0].quality
   end
 
+  def test_non_legendary_item_quality_is_never_greater_than_50
+    items = [
+      Basic.new('foo', -111, 60),
+      BackStagePass.new('foo', -111, 100),
+      Conjured.new('foo', -111, 100000),
+    ]
+
+    items.each do |item|
+      assert_equal 50, item.quality
+    end
+  end
+
+  def test_legendary_item_quality_is_always_80
+    items = [
+      Legendary.new('foo', -111, 50),
+    ]
+
+    assert_equal 80, items[0].quality
+  end
+
   def test_aged_brie_increases_in_quality_with_age
     items = [BackStagePass.new('Aged Brie', 1, 1)]
     GildedRose.new(items).update()
